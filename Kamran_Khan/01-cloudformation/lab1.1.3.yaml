@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Updating Stack name psuedo parameters"
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join [ '-', [ !Ref 'AWS::AccountId', !Ref 'AWS::Region']]
+Outputs:
+    AccountId:
+      Value: !Ref "AWS::AccountId"
+    Region:
+      Value: !Ref "AWS::Region"
+
+
+
+

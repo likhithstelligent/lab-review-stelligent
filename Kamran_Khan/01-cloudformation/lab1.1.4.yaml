@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Updating Stack name using condition"
+Parameters:
+  newfirstbucket1:
+    Type: String
+    Default: khan
+  Region:
+    Type: String
+    Default: us-east-1
+Conditions:
+  IsPreferedRegion: !Equals [ !Ref AWS::Region, us-east-1]
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+       !If [ IsPreferedRegion, !Join [ '-', [!Ref 'AWS::AccountId', !Ref 'newfirstbucket1'] ], !Join [ '-', [!Ref 'AWS::Region', !Ref 'newfirstbucket1'] ] ]
+
+
+
+

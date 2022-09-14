@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Object Lifecycles"
+Parameters:
+  BucketName:
+    Type: String
+    Default: stelligent-u-kamran.khan.labs
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: Rule_IA
+            Prefix: STANDARD_IA
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 30
+                StorageClass: "STANDARD_IA"            
+          - Id: Rule2_Glacier
+            Prefix: Glacier
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 90
+                StorageClass: "Glacier"
+          
