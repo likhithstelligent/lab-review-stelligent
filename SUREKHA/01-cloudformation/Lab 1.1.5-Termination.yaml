@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Enable Termination for Condition Template"
+Statement:
+    Effect: Allow
+    Action: 
+        cloudformation:UpdateTerminationProtection
+Parameters:
+  surekhabucket:
+    Type: String
+    Default: surekha
+  Region:
+    Type: String
+    Default: us-east-1
+Conditions:
+  IsPreferedRegion: !Equals [ !Ref AWS::Region, us-east-1 ]
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: 
+        !If [ IsPreferedRegion, !Join [ '-', [!Ref 'AWS::AccountId', !Ref 'surekhabucket'] ], !Join [ '-', [!Ref 'AWS::Region', !Ref 'surekhabucket'] ] ]

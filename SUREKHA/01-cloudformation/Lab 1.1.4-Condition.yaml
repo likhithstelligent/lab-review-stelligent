@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Condition Template"
+Parameters:
+  surekhabucket:
+    Type: String
+    Default: surekha
+  Region:
+    Type: String
+    Default: us-east-1
+Conditions:
+  IsDifferentRegion: !Equals [ !Ref AWS::Region, us-east-1 ]
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: 
+        !If [ IsDifferentRegion, !Join [ '-', [!Ref 'AWS::AccountId', !Ref 'surekhabucket'] ], !Join [ '-', [!Ref 'AWS::Region', !Ref 'surekhabucket'] ] ]
