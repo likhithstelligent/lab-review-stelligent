@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Condition Template for S3 Bucket"
+Parameters:
+  karneedibucket:
+    Type: String
+    Default: hari
+  Region:
+    Type: String
+    Default: us-east-1
+Conditions:
+  IsPreferedRegion: !Equals [ !Ref AWS::Region, us-east-1 ]
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+       !If [ IsPreferedRegion, !Join [ '-', [!Ref 'AWS::AccountId', !Ref 'karneedibucket'] ], !Join [ '-', [!Ref 'AWS::Region', !Ref 'karneedibucket'] ] ]

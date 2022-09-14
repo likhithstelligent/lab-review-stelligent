@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Cross-Referencing Resources within a Template"
+Parameters:
+  UserName:
+    Type: String
+    Default: harish789
+  UserPassword:
+    Type: String
+    Default: Harish@1999
+Resources:
+  IamUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: !Ref UserName
+      LoginProfile:
+        Password: !Ref UserPassword
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess

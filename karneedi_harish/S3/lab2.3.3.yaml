@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Tagging S3 Resources"
+Parameters:
+  MyBucketName:
+    Type: String
+    Default: stelligent-u-karneedi.harish.labs
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref MyBucketName
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: "Bucket Owner"
+          Value: "Harish"
+        - Key: "S3 Owner"
+          Value: "Karneedi"

@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Exposing Resource Details via Exports"
+Parameters:
+  UserName:
+    Type: String
+    Default: harish789
+  UserPassword:
+    Type: String
+    Default: Harish@1999
+Resources:
+  IamUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: !Ref UserName
+      LoginProfile:
+        Password: !Ref UserPassword
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+Outputs:
+  OutputName:
+    Description: "user name for the iam"
+    Value: !Ref IamUser
+    

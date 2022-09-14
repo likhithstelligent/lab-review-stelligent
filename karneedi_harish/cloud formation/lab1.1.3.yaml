@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Pseudo Parameters for S3 bucket"
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join [ '-', [ !Ref 'AWS::StackName', !Ref 'AWS::Partition',]]
+Outputs:
+    StackName:
+      Value: !Ref "AWS::StackName"
+    Partition:
+      Value: !Ref "AWS::Partition"
+    

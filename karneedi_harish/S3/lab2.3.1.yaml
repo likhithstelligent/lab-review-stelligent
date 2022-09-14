@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Set up for Versioning"
+Parameters:
+  MyBucketName:
+    Type: String
+    Default: stelligent-u-karneedi.harish.labs
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref MyBucketName
+      VersioningConfiguration:
+        Status: Enabled
+      
