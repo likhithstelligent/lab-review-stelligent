@@ -1,0 +1,7 @@
+Command:aws cloudformation delete-stack --no-verify-ssl --profile temp --stack-name shivanir5
+
+Output: InsecureRequestWarning: Unverified HTTPS request is being made to host 'cloudformation.us-east-1.amazonaws.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+
+Command:aws cloudformation delete-stack --no-verify-ssl --profile temp --stack-name shivanir3
+
+Output: InsecureRequestWarning: Unverified HTTPS request is being made to host 'cloudformation.us-east-1.amazonaws.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings

@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Template for S3 Bucket"
+Resources:
+ S3Bucket:
+  Type: AWS::S3::Bucket
+  Properties:
+     BucketName: !Ref shivani999
+Parameters:
+  shivani999:
+    Type: String
+
+
+#command:aws cloudformation update-stack --no-verify-ssl --profile temp --stack-name shivaniss1 --template-body "file://C:\Users\kolikacharla.shivani\Documents\cloudformation template\s3_bucket1.1.2.yaml" --parameters "file://C:\Users\kolikacharla.shivani\Documents\cloudformation template\lab1.1.2.json"

@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Versioning of s3 bucket"
+Parameters:
+  BucketName:
+    Type: String
+    Default: stelligent-u-kolikacharla.shivani.labs
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      VersioningConfiguration:
+        Status: Enabled
+
+
+        #Command:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name s3bucketv --template-body "file://C:\Users\kolikacharla.shivani\Documents\S3 buckets\lab_2.3.1.yaml" --region us-west-2
+        

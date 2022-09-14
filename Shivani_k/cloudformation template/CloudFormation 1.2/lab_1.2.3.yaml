@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Managedpolicy to user"
+Parameters:
+  UserName:
+    Type: String
+    Default: Shivanik
+  UserPassword:
+    Type: String
+    Default: Shivani@12
+Resources:
+  IamUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: !Ref UserName
+      LoginProfile:
+        Password: !Ref UserPassword
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+Outputs:
+  OutputName:
+    Description: "getting username"
+    Value: !Ref IamUser
+    Export:
+      Name: "ManagedPolicyArns"
+
+
+     #Command:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name shivanir5 --template-body "file://C:\Users\kolikacharla.shivani\Documents\CloudFormation 1.2\lab_1.2.3.yaml" --capabilities CAPABILITY_NAMED_IAM 
+    #Output:"StackId": "arn:aws:cloudformation:us-east-1:324320755747:stack/shivanir5/15727a20-2d9e-11ed-9f22-0a4fb3a065cf"
+
+   

@@ -1,0 +1,9 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Template for S3 Bucket"
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: "shivani-s3"
+
+      #command:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name shivaniss1 --template-body "file://C:\Users\kolikacharla.shivani\Documents\cloudformation template\s3-bucket-lab1.1.1.yaml

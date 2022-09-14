@@ -1,0 +1,14 @@
+lab1.1.5
+
+Applying termination protection (Enabled)
+Command:aws cloudformation delete-stack --no-verify-ssl --profile temp --stack-name shivaniss1
+Output:An error occurred (ValidationError) when calling the DeleteStack operation: Stack [shivaniss1] cannot be deleted while TerminationProtection is enabled
+
+
+Disabling Termination protection
+Command:aws cloudformation delete-stack --no-verify-ssl --profile temp --stack-name shivaniss1
+Output:InsecureRequestWarning: Unverified HTTPS request is being made to host 'cloudformation.us-east-1.amazonaws.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+{
+    "StackId": "arn:aws:cloudformation:us-east-1:324320755747:stack/shivaniss1/5f2810d0-2a8d-11ed-8f45-12b0cfd4414d"
+}
+

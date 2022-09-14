@@ -1,0 +1,14 @@
+Lab-3.1.1
+Command:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name ronaldo10 --template-body "file://C:\Users\kolikacharla.shivani\Documents\IAM -Labs\Lab_3..1.1.ex.yaml" --region us-west-2 --capabilities CAPABILITY_NAMED_IAM
+
+Output:
+{
+    "StackId": "arn:aws:cloudformation:us-west-2:324320755747:stack/ronaldo10/de908e30-3017-11ed-bb99-06384bea0b57"
+}
+
+List all the Roles:
+Command:aws iam list-roles --profile temp --no-verify-ssl
+
+Describe the specific Role your stack created:
+
+aws iam get-role --role-name ReadOnlyRole --profile temp --no-verify-ssl

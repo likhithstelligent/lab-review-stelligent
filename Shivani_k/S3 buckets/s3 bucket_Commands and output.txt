@@ -1,0 +1,72 @@
+Lab-2.1.1
+Create a Bucket
+Command:
+aws s3 mb --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs --region us-west-2
+
+listing the Buckets:aws s3 ls --profile temp --no-verify-ssl 
+
+Lab-2.1.2
+
+UPLOAD OBJECTS TO BUCKET
+
+aws s3 cp shivani22.txt --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs
+
+Lab-2.1.3
+
+aws s3 sync . --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs
+
+
+Lab-2.1.4
+
+clean up:
+
+aws s3 rm --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs --recursive
+
+remove bucket:
+aws s3 rb --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs
+
+
+Lab-2.2
+
+Lab-2.2.1
+Create bucket:aws s3 mb --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs --region us-west-2
+
+Sync:
+aws s3 sync . --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs
+
+Lab-2.2.2
+
+aws s3 sync . --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs --acl public-read
+
+aws s3 cp private.txt --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs --acl bucket-owner-full-control
+
+
+
+
+
+Lab-2.3.1
+
+
+Create Stack:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name s3bucketv --template-body "file://C:\Users\kolikacharla.shivani\Documents\S3 buckets\lab_2.3.1.yaml" --region us-west-2
+
+
+aws s3 cp private.txt --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs
+
+aws s3 sync . --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs 
+
+
+Lab-2.3.2
+
+
+
+
+
+Lab-2.3.3
+
+Command:aws cloudformation update-stack --no-verify-ssl --profile temp --stack-name s3bucketv --template-body "file://C:\Users\kolikacharla.shivani\Documents\S3 buckets\Lab_2.3.3.yaml" --region us-west-2 --tags Key='user',Value='marthin'
+
+
+Lab-2.3.4
+Command:aws cloudformation update-stack --no-verify-ssl --profile temp --stack-name s3bucketv --template-body "file://C:\Users\kolikacharla.shivani\Documents\S3 buckets\Lab_2.3.3.yaml" --region us-west-2 
+
+

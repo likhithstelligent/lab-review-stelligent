@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Condition Template"
+Parameters:
+  shivani999:
+    Type: String
+    Default: shivani 
+  Region:
+    Type: String
+    Default: us-east-1
+Conditions:
+  IsPreferedRegion: !Equals [ !Ref AWS::Region, us-east-1 ]
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: 
+       !If [ IsPreferedRegion, !Join [ '-', [!Ref 'AWS::AccountId', !Ref 'shivani999'] ], !Join [ '-', [!Ref 'AWS::Region', !Ref 'shivani999'] ] ]
+
+
+#command:aws cloudformation update-stack --no-verify-ssl --profile temp --stack-name shivaniss1 --template-body "file://C:\Users\kolikacharla.shivani\Documents\cloudformation template\s3-bucket-lab1.1.4.yaml
+
+
+#Command:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name shivaniss1 --region us-west-1 --template-body "file://C:\Users\kolikacharla.shivani\Documents\cloudformation template\s3-bucket-lab1.1.4.yaml"

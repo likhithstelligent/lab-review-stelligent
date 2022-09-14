@@ -1,0 +1,40 @@
+Lab-2.3.1
+Set up For Versioning
+Create the Stack:
+Command:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name s3bucketv --template-body "file://C:\Users\kolikacharla.shivani\Documents\S3 buckets\lab_2.3.1.yaml" --region us-west-2
+
+Output:
+
+{
+    "StackId": "arn:aws:cloudformation:us-west-2:324320755747:stack/s3bucketv/a4d044f0-2e74-11ed-85b1-0ab1279dc4f5"
+}
+
+Uploading files:
+aws s3 cp shivani22.txt --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs
+
+
+ modifying all files
+
+Sync after modifying:
+
+aws s3 sync . --no-verify-ssl --profile temp s3://stelligent-u-kolikacharla.shivani.labs
+
+Show version:
+
+Lab_2.3.2
+
+aws s3api delete-object  --no-verify-ssl --profile temp --bucket stelligent-u-kolikacharla.shivani.labs --key private.txt
+
+How would you delete all versions?
+
+aws s3api delete-object  --no-verify-ssl --profile temp --bucket stelligent-u-kolikacharla.shivani.labs --key private.txt --version-id
+
+
+2.3.3
+Tags
+aws cloudformation update-stack --no-verify-ssl --profile temp --stack-name s3bucketv --template-body "file://C:\Users\kolikacharla.shivani\Documents\S3 buckets\lab_2.3.1.yaml" --region us-west-2 --tags Key='user',Value='marthin'
+
+
+
+
+
