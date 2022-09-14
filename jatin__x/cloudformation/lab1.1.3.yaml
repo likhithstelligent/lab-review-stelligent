@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Pseudo Parameters"
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join [ '-', [ !Ref 'AWS::StackName', !Ref 'AWS::Region']]
+Outputs:
+    StackName:
+      Value: !Ref "AWS::StackName"
+    Region:
+      Value: !Ref "AWS::Region"

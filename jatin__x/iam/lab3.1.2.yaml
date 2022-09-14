@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Creation of IAM Role"
+Resources:
+  IamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - iam.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: customermanaged
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                - "iam:Get*"
+                - "iam:List*"
+                Resource: "arn:aws:iam::324320755747:role/ReadOnlyRole"
+      RoleName: ReadOnlyRole

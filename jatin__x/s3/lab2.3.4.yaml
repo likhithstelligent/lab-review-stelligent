@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Object Lifecycles"
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: StandardIARule
+            Prefix: STANDARD_IA
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 30
+                StorageClass: "STANDARD_IA"
+          - Id: GlacierRule
+            Prefix: glacier
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 90
+                StorageClass: "GLACIER"
