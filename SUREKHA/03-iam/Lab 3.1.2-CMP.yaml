@@ -13,7 +13,7 @@ Resources:
                 - iam.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: InlinePolicy
+        - PolicyName: CustomerPolicy
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
