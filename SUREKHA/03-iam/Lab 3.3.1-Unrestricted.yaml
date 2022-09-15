@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Unrestricted access to a service"
+Resources:
+  S3Bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: jvts1
+  S3Bucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: jvts2
+  IamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - iam.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CustomerManagedPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                - "iam:Get*"
+                - "iam:List*"
+                Resource: "*"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+      
+           
+      
+
+
