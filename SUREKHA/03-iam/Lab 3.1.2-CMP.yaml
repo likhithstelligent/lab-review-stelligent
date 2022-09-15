@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Customer Managed Policy"
+Resources:
+  IamPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: ManagedPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - "iam:Get*"
+            - "iam:List*"
+            Resource: "*"
+      Users: 
+      - janjanam.surekha.labs 
+Outputs:
+  OutputName:
+    Description: "CustomerManagedPolicy for Iam"
+    Value: !Ref IamPolicy
+    Export:
+      Name: "ManagedPolicyArns"
