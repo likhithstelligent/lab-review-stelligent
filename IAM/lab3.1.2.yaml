@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Customer Managed Policy"
+Resources:
+   IamPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: ManagedPolicy123
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 
+            - "iam:Get*"
+            - "iam:List*"
+            Resource: "*"
+      Roles: 
+        - !Ref Rolename
+Parameters:
+  Rolename:
+    Type: String 
+    Description: "Role to attach the policy"
+    Default: ReadOnlyRole    
+Outputs:
+  OutputName:
+    Description: "CustomerManagedPolicy for Iam"
+    Value: !Ref IamPolicy 
+    Export:
+      Name: "PolicyArn"     

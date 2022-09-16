@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Resource restrictions"
+Resources:
+  S3Bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: karneedi345
+  S3Bucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: harish789
+  IamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - iam.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: BucketPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 
+                - "S3:ListBucket"
+                Resource: 
+                - arn:aws:s3:::karneedi345
+              - Effect: Allow
+                Action:
+                - "S3:*Object"
+                Resource: 
+                - arn:aws:s3:::harish789/*
