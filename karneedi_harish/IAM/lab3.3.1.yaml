@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Unrestricted access to a service"
+Resources:
+  S3Bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: hari55
+  S3Bucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: hari77
+  MyPolicy1:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: ManagedPolicyhari23
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - "s3:*"
+            Resource: "*"
+  IamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              "AWS": "arn:aws:iam::324320755747:user/karneedi.harish.labs"
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Ref MyPolicy1
