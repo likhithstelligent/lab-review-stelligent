@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Tagging S3 Resources"
+Parameters:
+  BucketName:
+    Type: String
+    Default: stelligent-u-kodavati.priyanka.labs
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      VersioningConfiguration:
+        Status: Enabled
+
+ #{
+ #   "StackId": "arn:aws:cloudformation:us-west-2:324320755747:stack/priyankas1/0a58b040-2e71-11ed-80f0-021fb13c0537"
+#}
+      

@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Exposing Resource Details via Exports"
+Parameters:
+  UserName:
+    Type: String
+    Default: priyanka2344 
+Resources: 
+  MyIamUser:
+    Type: AWS::IAM::User
+    Properties: 
+      UserName: priyanka2344
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+Outputs:
+  OutputName:
+    Description: "user name for the iam"
+    Value: !Ref MyIamUser
+   
+#command:aws cloudformation update-stack --no-verify-ssl --profile temp --stack-name priyankas1 --template-body "file://C:\Users\kodavati.priyanka\Desktop\New folder (2)\lab1.2\lab1.2.2.yaml" --capabilities CAPABILITY_NAMED_IAM
+
+#{
+#    "StackId": "arn:aws:cloudformation:us-east-1:324320755747:stack/priyankas1/03fac9b0-2d34-11ed-b54c-0e62bae32ce5"
+#}

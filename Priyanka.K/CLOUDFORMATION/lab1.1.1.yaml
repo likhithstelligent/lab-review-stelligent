@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: " Template to create S3 bucket "
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: "priyanka1356"
+
+
+#command:aws cloudformation create-stack --no-verify-ssl --profile temp --stack-name priyankas2 --template-body "file://C:\Users\kodavati.priyanka\Desktop\New folder\lab1.1.1.yaml
+      

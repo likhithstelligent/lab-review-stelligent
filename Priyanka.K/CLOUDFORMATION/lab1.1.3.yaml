@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Updating Pseudo Parameters in Stack"
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join [ '-', [ !Ref 'AWS::AccountId', !Ref 'AWS::Region']]
+Outputs:
+    StackName:
+      Value: !Ref "AWS::AccountId"
+    Region:
+      Value: !Ref "AWS::Region"
+
+     
+ #aws cloudformation update-stack --no-verify-ssl --profile temp --stack-name priyankas1 --template-body "file://C:\Users\kodavati.priyanka\Desktop\New folder\lab1.1.3.yaml"
+
+#{
+#    "StackId": "arn:aws:cloudformation:us-east-1:324320755747:stack/priyankas1/a94a0760-284c-11ed-b811-0eb0af78ec0f"
+#}

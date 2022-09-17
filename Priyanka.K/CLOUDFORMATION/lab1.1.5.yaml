@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: " Applying Conditions on template"
+Statement:
+      Effect: Allow 
+      Action: cloudformation:UpdateTerminationProtection
+Parameters:
+  priyankabucket:
+    Type: String
+    Default: rashi
+  Region:
+    Type: String
+    Default: us-east-1
+Conditions:
+  IsPreferedRegion: !Equals [ !Ref AWS::Region, us-east-1 ]
+Resources:
+ S3Bucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: 
+       !If [ IsPreferedRegion, !Join [ '-', [!Ref 'AWS::AccountId', !Ref 'priyankabucket'] ], !Join [ '-', [!Ref 'AWS::Region', !Ref 'priyankabucket'] ] ]
