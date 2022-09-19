@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Internet Gateway"
+Parameters:
+  SsubnetCidr:
+    Type: String
+    Description: Ip
+    Default: 10.0.0.8/16
+Resources:
+  SurekhaVpc1:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: !Ref SsubnetCidr
+      Tags:
+        - Key: User
+          Value: surekha.janjanam
+        - Key: stelligent.surekha
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+  SurekhaSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.2/24
+      AvailabilityZone: us-west-2a
+      Tags:
+        - Key: User
+          Value: surekha.janjanam
+        - Key: stelligent.surekha
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+      VpcId: !Ref SurekhaVpc1
+  SurekhaInternetGateway:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+        Tags:
+          - Key: User
+            Value: surekha.janjanam
+  SurekhaVPCGA:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties: 
+        InternetGatewayId: !Ref SurekhaInternetGateway
+        VpcId: !Ref SurekhaVpc1
+  SurekhaRouteTable:
+      Type: AWS::EC2::RouteTable
+      Properties: 
+        VpcId: !Ref SurekhaVpc1
+  SurekhaRoute:
+      Type: AWS::EC2::Route
+      Properties: 
+        GatewayId: !Ref SurekhaInternetGateway
+        RouteTableId: !Ref SurekhaRouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+      

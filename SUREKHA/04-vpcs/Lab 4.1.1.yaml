@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "New VPC with Private Subnet"
+Parameters:
+  SsubnetCidr:
+    Type: String
+    Description: Ip
+    Default: 10.0.0.8/16
+Resources:
+  SurekhaVpc:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: !Ref SsubnetCidr
+      Tags:
+        - Key: User
+          Value: surekha.janjanam
+        - Key: stelligent.surekha
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+  SurekhaSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.2/24
+      AvailabilityZone: us-west-2a
+      Tags:
+        - Key: User
+          Value: surekha.janjanam
+        - Key: stelligent.surekha
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+      VpcId: !Ref SurekhaVpc
+Outputs:
+  MyVpcOp:
+    Value: !Ref SurekhaVpc
+  MySubnetOp:
+    Value: !Ref SurekhaSubnet
