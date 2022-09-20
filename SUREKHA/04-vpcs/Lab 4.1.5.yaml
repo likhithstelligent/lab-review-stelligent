@@ -29,7 +29,7 @@ Resources:
         - Key: stelligent.surekha
           Value: '4'
         - Key: stelligent-u-labs
-          Value: '4.1.5'
+          Value: '4.1.6'
       SubnetId: !ImportValue ImportSubnetId
   SurekhaEIP:
     Type: AWS::EC2::EIP
