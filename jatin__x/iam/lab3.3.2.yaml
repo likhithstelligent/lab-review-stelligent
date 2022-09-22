@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Unrestricted access to a service"
+Resources:
+  MyS3Bucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: raman11
+  MyS3Bucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: raman22
+  MyPolicy1:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: RamanManagedPolicy01
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - "s3:*"
+            Resource:
+            - "!Sub arn:aws:s3:::${MyS3Bucket1}"
+            - "!Sub arn:aws:s3:::${MyS3Bucket1}/*"
+      Users:
+        - "jatin.x.labs"
+  MyPolicy2:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: RamanManagedPolicy02
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - "s3:Get*"
+            - "s3:List*"
+            Resource:
+            - "!Sub arn:aws:s3:::${MyS3Bucket2}"
+            - "!Sub arn:aws:s3:::${MyS3Bucket2}/*"
+      Users:
+        - "jatin.x.labs"
+  IamRole123:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              "AWS": "arn:aws:iam::324320755747:user/jatin.x.labs"
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Ref MyPolicy1
+        - !Ref MyPolicy2

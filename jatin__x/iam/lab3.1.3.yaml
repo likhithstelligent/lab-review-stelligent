@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Re-Use of the Customer Managed Policy"
+Resources:
+  JatinRole:
+    Type: AWS::IAM::Role    
+    Properties:
+      Description: Re-use of customer managed policy
+      RoleName: JatinRole1
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - iam.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::324320755747:policy/ManagedPolicy8761
