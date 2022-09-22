@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Launch Two EC2 Instances"
+Resources:
+  Ec2Instan1:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.micro
+      ImageId: ami-0b3e423be2b1ed909
+      AvailabilityZone: us-east-1a
+      KeyName: SurekhaKeyPair
+      Tags:
+        - Key: User
+          Value: surekha.janjanam
+      SubnetId: !ImportValue ImportSubnetId
+  Ec2Instan2:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.micro
+      ImageId: ami-08c40ec9ead489470
+      AvailabilityZone: us-east-1a
+      KeyName: SurekhaKeyPair
+      Tags:
+        - Key: User
+          Value: surekha.janjanam
+      SubnetId: !ImportValue ImportSubnetId
+  JvtsInstance:
+    Type: AWS::EC2::LaunchTemplate
+    Properties: 
+      LaunchTemplateData: 
+        InstanceType: !Ref Ec2Instan1
+        ImageId: ami-0b3e423be2b1ed909
+        InstanceType: !Ref Ec2Instan2
+        ImageId: ami-08c40ec9ead489470
+      LaunchTemplateName: SLT
+          
