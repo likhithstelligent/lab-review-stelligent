@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Security Group"
+Resources:
+  HarishEc2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-05fa00d4c63e32376
+      AvailabilityZone: us-east-1a
+      KeyName: HarishKeyPair
+      Tags:
+        - Key: User
+          Value: karneedi.harish
+      SubnetId: !ImportValue ImportSubnetId3
+      SecurityGroupIds:
+        - !Ref HarishSGPing
+  HarishSGPing:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SeurityGroup to test ping
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 10.0.0.0/24
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 10.0.0.0/24
+      Tags:
+        - Key: User
+          Value: karneedi.harish
+      VpcId: !ImportValue ImportVpcId3

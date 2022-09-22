@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Internet Gateway"
+Parameters:
+  SsubnetCidr:
+    Type: String
+    Description: Ip
+    Default: 10.0.0.8/16
+Resources:
+  MyVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref SsubnetCidr
+      Tags:
+        - Key: User
+          Value: Harish.k
+        - Key: stelligent.Harish
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+  MySubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.2/24
+      AvailabilityZone: us-east-1a
+      Tags:
+        - Key: User
+          Value: Harish.k
+        - Key: stelligent.Harish
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+      VpcId: !Ref MyVpc
+  HarishInternetGateway:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+        Tags:
+          - Key: User
+            Value: Harish.k
+  HarishVPCGA:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+        InternetGatewayId: !Ref HarishInternetGateway
+        VpcId: !Ref MyVpc
+  HarishRouteTable:
+      Type: AWS::EC2::RouteTable
+      Properties:
+        VpcId: !Ref MyVpc
+  HarishRoute:
+      Type: AWS::EC2::Route
+      Properties:
+        GatewayId: !Ref HarishInternetGateway
+        RouteTableId: !Ref HarishRouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+Outputs:
+  Vpc:
+    Value: !Ref MyVpc
+    Export:
+      Name: ImportVpcId3
+  Subnet:
+    Value: !Ref MySubnet
+    Export:
+      Name: ImportSubnetId3
