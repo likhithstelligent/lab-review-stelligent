@@ -1,0 +1,63 @@
+Parameters:
+  SubnetCidr:
+      Type: String
+      Description: enter ip
+      Default: 10.0.0.3/16
+Resources:
+  MyVpc:
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: !Ref SubnetCidr
+        Tags:
+            - Key: User
+              Value: kodavati.priyanka        
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.2'
+  MySubnet:
+      Type: AWS::EC2::Subnet
+      Properties:
+        CidrBlock: 10.0.1.7/24
+        AvailabilityZone: us-east-1a
+        Tags:
+            - Key: User
+              Value: kodavati.priyanka        
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.2'
+        VpcId: !Ref MyVpc
+  MyInternetGateWay:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+        Tags:
+            - Key: User
+              Value: kodavati.priyanka        
+            - Key: stelligent-u-lesson
+              Value: '4'
+  AttachGatewayVps:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Description: "Attaching Internet GateWay"
+      Properties:
+        InternetGatewayId: !Ref MyInternetGateWay
+        VpcId: !Ref MyVpc
+  RouteTableVpc:
+      Type: AWS::EC2::RouteTable
+      Properties:
+        VpcId:  !Ref MyVpc
+  MyRoute:
+      Type: AWS::EC2::Route
+      Properties:
+        GatewayId: !Ref  MyInternetGateWay
+        RouteTableId: !Ref  RouteTableVpc
+        DestinationCidrBlock: 0.0.0.0/0      
+Outputs:
+  Vpc:
+    Value: !Ref MyVpc
+    Export: 
+      Name: ImportVpcId2
+  Subnet:
+    Value: !Ref MySubnet
+    Export: 
+      Name: ImportSubnetId2        

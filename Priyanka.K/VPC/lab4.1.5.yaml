@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Security Group"
+Resources:
+  SGPing:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group to test ping
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 10.0.0.0/24
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 10.0.0.0/24
+      Tags: 
+        - Key: User
+          Value: kodavati.priyanka
+      VpcId: !ImportValue ImportVpcId

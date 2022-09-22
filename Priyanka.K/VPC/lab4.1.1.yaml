@@ -1,0 +1,35 @@
+Parameters:
+  SubnetCidr:
+      Type: String
+      Description: enter ip
+      Default: 10.0.0.8/16
+Resources:
+    MyVpc1:
+      Type: AWS::EC2::VPC
+      Properties:
+          CidrBlock: !Ref SubnetCidr
+          Tags:
+            - Key: User
+              Value: kodavati.priyanka      
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.1'
+    MyPublicSubnet1:
+      Type: AWS::EC2::Subnet
+      Properties:
+          CidrBlock: 10.0.1.6/24
+          AvailabilityZone: us-east-1a
+          Tags:
+            - Key: User
+              Value: kodavati.priyanka      
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.1'
+          VpcId: !Ref MyVpc1
+Outputs:
+    MyVpcOutput:
+      Value: !Ref MyVpc1
+    MySubnetOutput:
+      Value: !Ref MyPublicSubnet1
