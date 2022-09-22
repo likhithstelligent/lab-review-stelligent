@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  bucket55:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: rdfv12
+  bucket66:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: vfrd23
+  ShivaniPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: ManagedPolicy356
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - "s3:*"
+            Resource: '*'
+  RootRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam::324320755747:user/kolikacharla.shivani.labs
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - !Ref ShivaniPolicy

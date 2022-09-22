@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  bucket55:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: rdfvg5
+  bucket66:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: vfrdr6
+  RolePolicy54:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: ManagedPolicy88
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - "s3:*"
+            Resource: 
+              - '!Sub arn:aws:s3:::${bucket55}'
+              - '!Sub arn:aws:s3:::${S3Bucket}/*'
+      Users:
+        - "kolikacharla.shivani.labs"
+  RolePolicy67:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: "Customer Managed Policy"
+      ManagedPolicyName: ManagedPolicy77
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            - "s3:*"
+            Resource: 
+              - '!Sub arn:aws:s3:::${bucket66}'
+              - '!Sub arn:aws:s3:::${S3Bucket}/*'
+      Users:
+        - "kolikacharla.shivani.labs"
+  RootRole4:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam::324320755747:user/kolikacharla.shivani.labs
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+          - !Ref RolePolicy54
+          - !Ref RolePolicy67
