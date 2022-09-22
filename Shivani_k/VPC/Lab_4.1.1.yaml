@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: New VPC with Private Subnet
+Parameters:
+  SubnetCidr:
+      Type: String
+      Description: enter ip
+      Default: 10.0.0.8/16
+Resources:
+    MyVpc:
+      Type: AWS::EC2::VPC
+      Properties: 
+          CidrBlock: !Ref SubnetCidr
+          Tags:
+            - Key: User
+              Value: kolikacharla.shivani         
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.1'
+    MySubnet:
+      Type: AWS::EC2::Subnet
+      Properties:
+          CidrBlock: 10.0.1.8/24
+          AvailabilityZone: us-east-1a
+          Tags:
+            - Key: User
+              Value: kolikacharla.shivani         
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.1'
+          VpcId: !Ref MyVpc
+Outputs:
+    MyVpcOutput:
+      Value: !Ref MyVpc
+    MySubnetOutput:
+      Value: !Ref MySubnet
+   
+
+            

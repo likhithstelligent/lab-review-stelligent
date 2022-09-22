@@ -1,0 +1,77 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Creating NAT Gateway
+Parameters:
+  InstanceTypeId:
+    Type: String
+    Description: Instance type t2 selection
+    Default: t2.micro
+    AllowedValues: 
+        - t2.micro
+        - t2.small
+        - t2.medium
+  MyInstanceAmiId:
+    Type: String
+    Description: AMI Of Linux OS
+    Default: ami-05fa00d4c63e32376
+  KeyName1:
+    Description: Name of key pair in AWS
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    Default: shivanikeypair
+Resources:
+  NatGateWayEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: !Ref VPC
+  NatGateWay1:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NatGateWayEIP.AllocationId
+      SubnetId: !Ref PrivateSubnet2
+  PrivateRouteTable1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+  PrivateRoute1:
+    Type: AWS::EC2::Route
+    Properties:
+        NatGatewayId: !Ref  NatGateWay1
+        RouteTableId: !Ref  PrivateRouteTable1
+        DestinationCidrBlock: 0.0.0.0/0
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.4/16   
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+        CidrBlock: 10.0.0.4/24
+        AvailabilityZone: us-east-1a
+        MapPublicIpOnLaunch: true
+        VpcId: !Ref VPC
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+          CidrBlock: 10.0.1.8/24
+          AvailabilityZone: us-east-1a
+          MapPublicIpOnLaunch: false
+          VpcId: !Ref VPC
+  MyInternetGateWay:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+        Tags:
+            - Key: User
+              Value: kolikacharla.shivani         
+            - Key: stelligent-u-lesson
+              Value: '4'
+  AttachGatewayVps:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+        InternetGatewayId: !Ref MyInternetGateWay
+        VpcId: !Ref VPC
+  MyInstance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceTypeId
+      KeyName: !Ref KeyName1
+      ImageId: !Ref  MyInstanceAmiId
+      SubnetId: !Ref PrivateSubnet2

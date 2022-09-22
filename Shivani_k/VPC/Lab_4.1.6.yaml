@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Elastic Ip"
+Parameters:
+  InstanceTypeId:
+    Type: String
+    Description: Instance type t2 selection
+    Default: t2.micro
+    AllowedValues: 
+        - t2.micro
+        - t2.small
+        - t2.medium
+  MyInstanceAmiId:
+    Type: String
+    Description: AMI Of Linux OS
+    Default: ami-05fa00d4c63e32376
+  KeyName:
+    Description: Name of key pair in AWS
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    Default: shivanikeypair
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceTypeId
+      KeyName: !Ref KeyName
+      ImageId: !Ref MyInstanceAmiId
+      Tags:
+            - Key: User
+              Value: kolikacharla.shivani         
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.1' 
+      SubnetId: !ImportValue ImportSubnetId1
+  MyEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref MyInstance
+Outputs:
+  InstanceId:
+    Value: !Ref MyInstance
+  PrivateIp:
+    Value: !GetAtt MyInstance.PrivateIp
+  PublicIp:
+    Value: !GetAtt MyInstance.PublicIp
