@@ -43,7 +43,7 @@ Resources:
       RouteTableId: !Ref HarishRouteTable1
       DestinationCidrBlock: '0.0.0.0/16'
       NatGatewayId: !Ref HarishNatGateWay
-  SurekhaEc2Instance1:
+  HarishEc2Instance1:
     Type: AWS::EC2::Instance
     Properties: 
       InstanceType: t2.micro
