@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "AWS managed policy"
+Resources:
+  KhanRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Managed Policy
+      RoleName: KhanRole2
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+              Action: 
+                - sts:AssumeRole     
+      ManagedPolicyArns:
+        - arn:aws:iam::policy/AmazonEC2ReadOnlyAccess
