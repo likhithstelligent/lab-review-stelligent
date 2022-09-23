@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Network ACL"
+Parameters:
+  KksubnetCidr:
+    Type: String
+    Description: Ip
+    Default: 10.0.0.8/16
+Resources:
+  KhanNetworkAcl:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !ImportValue ImportVpcId
+      Tags:
+        - Key: User
+          Value: Kamran.khan
+  KhanSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: Security Group for EC2
+      GroupName: KkSG2
+      SecurityGroupIngress:
+        - IpProtocol: All
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8
+          ToPort: 22
+          CidrIp: 192.0.2.0/24
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 2
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+      Tags: 
+        - Key: User
+          Value: Kamran.khan
+      VpcId: !ImportValue ImportVpcId

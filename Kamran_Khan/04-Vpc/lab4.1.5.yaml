@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Security Group"
+Resources:
+  Resources:
+  KhanEc2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0c2ab3b8efb09f272
+      AvailabilityZone: us-west-2a
+      KeyName: KamranKeyName
+      Tags:
+        - Key: User
+          Value: Kamran.khan
+      SubnetId: !ImportValue ImportSubnetIdkk
+      SecurityGroupsIds:
+        - !Ref KhanSGPing
+  KhanSGPing:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SeurityGroup to test ping
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 10.0.0.0/24
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 10.0.0.0/24
+      Tags:
+        - Key: User
+          Value: Kamran.khan
+      VpcId: !ImportValue ImportVpcIdkk
+  KhanEIP:
+    Type: AWS::EC2::EIP
+    Properties: 
+      InstanceId: !Ref KhanEc2Instance

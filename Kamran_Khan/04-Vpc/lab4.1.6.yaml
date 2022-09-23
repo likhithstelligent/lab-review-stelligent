@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Test Instance & EIP"
+Parameters:
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+    Description: Type of Instance
+  InstanceImageId:
+    Type: String
+    Default: ami-0c2ab3b8efb09f272
+  InstanceKeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: KamranKeyPair
+Resources:
+  KhanEc2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceTypeParameter
+      ImageId: !Ref InstanceImageId
+      AvailabilityZone: us-east-1
+      KeyName: !Ref InstanceKeyName
+      Tags:
+        - Key: User
+          Value: Kamran.khan
+        - Key: stelligent.Kamran
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.4'
+      SubnetId: !ImportValue ImportSubnetIdkk 
+  KhanEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref KhanEc2Instance
+Outputs:
+  InstanceId:
+    Value: !Ref KhanEc2Instance
+  PrivateIp:
+    Value: !GetAtt KhanEc2Instance.PrivateIp
+  PublicIp:
+    Value: !GetAtt KhanEc2Instance.PublicIp

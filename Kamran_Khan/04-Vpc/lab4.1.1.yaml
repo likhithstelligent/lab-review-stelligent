@@ -1,0 +1,37 @@
+AWSTemplareFormatVersion: "2010-09-09"
+Description: "New VPC with Private Subnet"
+Parameters:
+    KkSubnetCidr:
+      Type: String
+      Description: Entering IP
+      Default: 10.0.0.2/16
+Resources:
+    KhanVpc:
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: !Ref KkSubnetCidr
+        Tags:
+            - Key: User
+              Value: kamran.khan        
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.1'
+    KhanSubnet:
+      Type: AWS::EC2::Subnet
+      Properties:
+          CidrBlock: 10.0.0.4/24
+          AvailabilityZone: us-west-2a
+          Tags:
+            - Key: User
+              Value: kamran.khan        
+            - Key: stelligent-u-lesson
+              Value: '4'
+            - Key: stelligent-u-lab
+              Value: '4.1.1'
+          VpcId: !Ref KhanVpc
+Outputs:
+    MyVpcOutput:
+      Value: !Ref KhanVpc
+    MySubnetOutput:
+      Value: !Ref KhanSubnet
