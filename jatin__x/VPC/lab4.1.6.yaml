@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "EIP"
+Parameters:
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+  InstanceImageId:
+    Type: String
+    Default: ami-05fa00d4c63e32376
+  InstanceKeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: JatinKeyPair
+Resources:
+  JatinEc2Instance:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: !Ref InstanceTypeParameter
+      ImageId: !Ref InstanceImageId
+      AvailabilityZone: us-east-1a
+      KeyName: !Ref InstanceKeyName
+      Tags:
+        - Key: User
+          Value: Jatin.x
+        - Key: stelligent.Jatin
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.6'
+      SubnetId: !ImportValue ImportSubnetId
+  JatinEIP:
+    Type: AWS::EC2::EIP
+    Properties: 
+      InstanceId: !Ref JatinEc2Instance
+Outputs:
+  InstanceId:
+    Value: !Ref JatinEc2Instance
+  PrivateIp:
+    Value: !GetAtt JatinEc2Instance.PrivateIp
+  PublicIp:
+    Value: !GetAtt JatinEc2Instance.PublicIp

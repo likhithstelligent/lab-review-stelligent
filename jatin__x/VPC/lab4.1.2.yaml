@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Internet Gateway"
+Parameters:
+  SsubnetCidr:
+    Type: String
+    Description: Ip
+    Default: 10.0.0.8/16
+Resources:
+  JatinVpc1:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: !Ref SsubnetCidr
+      Tags:
+        - Key: User
+          Value: Jatin.x
+        - Key: stelligent.Jatin
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+  JatinSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.2/24
+      AvailabilityZone: us-east-1a
+      Tags:
+        - Key: User
+          Value: Jatin.x
+        - Key: stelligent.Jatin
+          Value: '4'
+        - Key: stelligent-u-labs
+          Value: '4.1.1'
+      VpcId: !Ref JatinVpc1
+  JatinInternetGateway:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+        Tags:
+          - Key: User
+            Value: Jatin.x
+  JatinVPCGA:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties: 
+        InternetGatewayId: !Ref JatinInternetGateway
+        VpcId: !Ref JatinVpc1
+  JatinRouteTable:
+      Type: AWS::EC2::RouteTable
+      Properties: 
+        VpcId: !Ref JatinVpc1
+  JatinRoute:
+      Type: AWS::EC2::Route
+      Properties: 
+        GatewayId: !Ref JatinInternetGateway
+        RouteTableId: !Ref JatinRouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+Outputs:
+  Vpc:
+    Value: !Ref JatinVpc1
+    Export: 
+      Name: ImportVpcId12
+  Subnet:
+    Value: !Ref JatinSubnet1
+    Export: 
+      Name: ImportSubnetId12
