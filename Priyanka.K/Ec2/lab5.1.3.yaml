@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Change the AMI ID for the Windows instance
+  MyInstance1:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0910b65723f27f156
+      InstanceType: t2.micro
+  MyInstance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0ee23bfc74a881de5
+      InstanceType: t2.micro 
+  MyLaunchTemplate1:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: MyLaunchTemplate2
+      LaunchTemplateData:
+        InstanceType: !Ref MyInstance1
+        ImageId: ami-0910b65723f27f156  
+        InstanceType: !Ref MyInstance2
+        ImageId: ami-0ee23bfc74a881de5
+        KeyName: priyakeypair

@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Elastic IP 
+Resources:
+  MyInstance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0ee23bfc74a881de5
+      InstanceType: t2.micro
+  MyEIP:    
+    Type: AWS::EC2::EIP
+    Properties: 
+      InstanceId: !Ref MyInstance2
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group to test ping
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 10.0.0.0/24
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 10.0.0.0/24    
+  MyLaunchTemplate1:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: MyLaunchTemplate2
+      LaunchTemplateData:  
+        InstanceType: !Ref MyInstance2
+        ImageId: ami-0ee23bfc74a881de5
+        KeyName: priyakeypair
+        SecurityGroupIds:
+            - sg-041b67a30564f5a42
+Outputs:
+  PublicIP4:
+    Value: !GetAtt MyInstance2.PublicIp
+
