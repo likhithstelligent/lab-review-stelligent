@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "SSH Keys for ec2 instance"
+Resources:
+  Ec2Instan20:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.micro
+      ImageId: ami-08c40ec9ead489470
+      AvailabilityZone: us-east-1a
+      KeyName: JatinKeyPair
+      Tags:
+        - Key: User
+          Value: Jatin.x
+      SecurityGroupIds: 
+          - !Ref SSGLaunchTemplate1
+  Ec2EIP1:
+    Type: AWS::EC2::EIP
+    Properties: 
+      InstanceId: !Ref Ec2Instan20
+  Ec2EIPAssociation1:
+    Type: AWS::EC2::EIPAssociation
+    Properties: 
+      EIP: !Ref Ec2EIP1
+      InstanceId: !Ref Ec2Instan20
+  JvtsInstance:
+    Type: AWS::EC2::LaunchTemplate
+    Properties: 
+      LaunchTemplateData: 
+        InstanceType: !Ref Ec2Instan20
+        ImageId: ami-08c40ec9ead489470
+        KeyName: JatinKeyPair
+        SecurityGroupIds: 
+          - sg-043ea24192c3162af
+      LaunchTemplateName: !Ref SSGLaunchTemplate1
+  SSGLaunchTemplate1:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SeurityGroup to launch template
+      SecurityGroupIngress:
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags: 
+        - Key: User
+          Value: Jatin.x
+Outputs:
+  PublicIp:
+    Value: !GetAtt Ec2Instan20.PublicIp

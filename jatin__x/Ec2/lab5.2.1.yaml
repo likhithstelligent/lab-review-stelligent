@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Elastic IP"
+Resources:
+  JatinEc2InstanUbuntu:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.micro
+      ImageId: ami-08c40ec9ead489470
+      AvailabilityZone: us-east-1a
+      KeyName: JatinKeyPair
+      Tags:
+        - Key: User
+          Value: Jatin.x
+      SecurityGroupIds:
+            - !Ref JatinSecurityGroup
+      SubnetId: !ImportValue ImportSubnetId
+  JatinSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group to test ping
+      SecurityGroupIngress:
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 10.0.0.0/0
+      VpcId: !ImportValue ImportVpcId12
+  ElasticIp:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref JatinEc2InstanLinux
+      Tags:
+        - Key: User
+          Value: Jatin.x
+  EIPAssociation:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      EIP: !Ref ElasticIp
+      InstanceId: !Ref JatinEc2InstanLinux
+  JvtsInstance1:
+    Type: AWS::EC2::LaunchTemplate
+    Properties: 
+      LaunchTemplateName: JATIN3
+      LaunchTemplateData: 
+        InstanceType: !Ref JatinEc2InstanLinux
+        ImageId: ami-08c40ec9ead489470
+        SecurityGroupIds:
+            - !Ref JatinSecurityGroup
+Outputs:
+  PublicIp:
+    Value: !GetAtt JatinEc2InstanUbuntu.PublicIp
+  ElasticIpLinuxPublic:
+    Description: IPv4 Public address of Elastic IP
+    Value: !Ref ElasticIp
+  SecurityGroupIdLinux:
+    Description: Security group for linux instances
+    Value: !Ref JatinSecurityGroup
+    Export:
+      Name: Jatin-SecurityGroupIdLinux

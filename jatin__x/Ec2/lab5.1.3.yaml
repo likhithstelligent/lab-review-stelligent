@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Update of stack with another window AMI"
+Resources:
+  JatinEc2InstanWindow:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.micro
+      ImageId: ami-0910b65723f27f156
+      AvailabilityZone: us-east-1a
+      KeyName: JatinKeyPair
+      Tags:
+        - Key: User
+          Value: Jatin.x
+      SubnetId: !ImportValue ImportSubnetId
+  JatinEc2InstanUbuntu:
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.micro
+      ImageId: ami-08c40ec9ead489470
+      AvailabilityZone: us-east-1a
+      KeyName: JatinKeyPair
+      Tags:
+        - Key: User
+          Value: Jatin.x
+      SubnetId: !ImportValue ImportSubnetId
+  JvtsInstance1:
+    Type: AWS::EC2::LaunchTemplate
+    Properties: 
+      LaunchTemplateData: 
+        InstanceType: !Ref JatinEc2InstanWindow
+        ImageId: ami-0910b65723f27f156
+        InstanceType: !Ref JatinEc2InstanLinux
+        ImageId: ami-08c40ec9ead489470
+      LaunchTemplateName: JATIN12
