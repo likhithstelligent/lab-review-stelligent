@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Update the Windows AMI"
+Resources:
+  Ec2InstanceWindows:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0910b65723f27f156
+      AvailabilityZone: us-east-1a
+      KeyName: HarishKeyPair
+      Tags:
+        - Key: User
+          Value: karneedi.harish
+  Ec2InstanceUbuntu:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0ee23bfc74a881de5
+      AvailabilityZone: us-east-1a
+      KeyName: HarishKeyPair
+      Tags:
+        - Key: User
+          Value: karneedi.harish
+  HarishInstance:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        InstanceType: !Ref Ec2InstanceWindows
+        ImageId: ami-0910b65723f27f156
+        InstanceType: !Ref Ec2InstanceUbuntu
+        ImageId: ami-0ee23bfc74a881de5
+      LaunchTemplateName: Harishlaunchtemplate
