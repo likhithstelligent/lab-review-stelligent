@@ -1,0 +1,9 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ASG from Instance
+Resources:
+  MyInstance1:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-09a41e26df464c548  
+      InstanceType: t2.micro
+      KeyName: priyakeypair
