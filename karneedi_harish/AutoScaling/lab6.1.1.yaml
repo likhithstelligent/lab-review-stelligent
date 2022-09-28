@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "ASG from Instance"
+Resources:
+  Ec2DebianInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-09a41e26df464c548
+      AvailabilityZone: us-east-1a
+      KeyName: HarishKeyPair
+      Tags:
+        - Key: User
+          Value: karneedi.harish
